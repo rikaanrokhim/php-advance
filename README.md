@@ -153,3 +153,219 @@ class Admin extends User
     }
 }
 ```
+
+# Anonymous class
+
+Anonymous Class adalah class anonim alias tanpa nama. Anonymous class berguna jika kita mendadak membutuhkan object sederhana tanpa ingin ribet didahului pembuatan regular class seperti biasanya.
+
+#### Contoh Penggunaan dengan anonymous class
+
+```php
+class User 
+{
+
+    private $name;
+
+    public function setName($name) 
+  {
+        $this->name = $name;
+  }
+
+    public function getName() 
+  {
+        return $this->name;
+  }
+
+}
+
+/*
+* instansiasi
+*/
+$user1 = new User;
+
+/*
+* anonymous class
+*/
+$user1->setName(new class 
+{
+
+    public function show($name) 
+    {
+
+        return "Nama: " . $name;
+    }
+
+});
+
+echo $user1->getName()->show("Dewi");
+```
+
+#### Contoh tidak menggunakan anonymous function
+
+```php
+class User 
+{
+
+    private $name;
+
+    public function setName($name) 
+    {
+        $this->name = $name;
+    }
+
+    public function getName() 
+    {
+        return $this->name;
+    }
+
+}
+
+/*
+* membuat class baru
+*/
+class ShowName 
+{
+
+    public function show($name) 
+    {
+        return "Nama: " . $name;
+    }
+
+}
+
+/*
+* instansiasi
+*/
+$show = new ShowName();
+$user = new User;
+
+/*
+* set name dari object
+*/
+$user->setName($show);
+
+echo $user->getName()->show("Dewi");
+
+Jadi, perbedaan dari penggunaan anonymous function dan tidak adalah jika menggunakan anonymous function kita tidak perlu lagi membuat object baru dan script nya juga lebih simple.
+
+Sebenarnya anonymous class memiliki nama, ini bisa dibuktikan dengan menjalankan sebuah function yang digunakan untuk mengambil nama class dari sebuah object: `get_class(object)`
+
+```php
+echo get_class(new class {});
+```
+
+### Anonymous class bertindak seperti class regular :
+
+**a. Boleh diberi argumen, meng-extend class lain, meng-implement interface dan menggunakan trait.**
+
+#### Contoh
+```php
+class ThisClass {}
+interface ThisInterface {}
+trait ThisTrait {}
+
+class User 
+{
+
+    private $name;
+
+    public function setName($name) 
+    {
+        $this->name = $name;
+    }
+
+    public function getName() 
+    {
+        return $this->name;
+    }
+
+}
+
+/*
+* instansiasi
+*/
+$user1 = new User;
+
+/*
+* anonymous class
+*/
+
+$user1->setName(new class('Marta') extends ThisClass implements ThisInterface {
+  
+  /*
+  * menggunakan ThisTrait
+  */
+    use ThisTrait;
+
+    private $lastName;
+
+    public function __construct($lastName)
+    {
+        
+        $this->lastName = $lastName;
+    }
+
+    public function show($name) 
+    {
+
+        return "Nama : " . $name . " " . $this->lastName;
+    }
+
+});
+
+echo $user1->getName()->show("Dewi");
+```
+
+**b. Tidak boleh akses private dan protected**
+
+Ketika anonymous class dibungkus oleh class lain, walaupun dibungkus oleh class lain tetap saja anonymous class tidak diperbolehkan mengakses private dan protected method atau property yang berasal dari class yang membungkusnya.
+
+#### Contoh
+
+```php
+class Balon
+{
+    private $warna = 'merah ';
+
+    protected $bahan = 'karet ';
+
+    public function kegunaan() 
+    {
+      return "Ulang Tahun";
+    }
+
+    public function diPakai() 
+    {
+
+        /* 
+        * jika ingin menggunakan protected property
+        * dari class Balon maka harus
+        * meng-extend class Balon
+        * walaupun anonymous class dibungkus / berada dalam class Balon
+        */
+        return new class($this->warna) extends Balon 
+        {
+
+            private $warnanya;
+
+            public function __construct($warna)
+            {
+                $this->warnanya = $warna;
+            }
+
+            public function guna()
+            {
+                /*
+                * $this->bahan berasal dari class Balon
+                * boleh diakeses setelah meng-extend class Balon
+                */
+                return "Balon " . $this->bahan . "warna " . $this->warnanya . "dipakai untuk " . $this->kegunaan() . " Adik";
+            }
+        };
+    }
+}
+
+$bungkus = new Balon();
+
+echo $bungkus->diPakai()->guna();
+```
