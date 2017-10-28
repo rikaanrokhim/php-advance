@@ -91,13 +91,17 @@ class Admin extends User
 
 7. Abstract class boleh memiliki property dan method regular
 ```php
+// abstract class
 abstract class User
 {
-    protected $address = 'Semarang';
+    // regular property
+    protected $address = 'Surabaya';
 
+    // abstract method
     abstract protected function showName();
     abstract public function showGreeting($greeting);
     
+    // regular method
     public function showBio()
     {
         return "Hi, my name is " . $this->showName() . " from " . $this->address;
