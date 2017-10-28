@@ -42,7 +42,7 @@ abstract class User
 {
     abstract protected function showName();
     {
-        
+
     }
 }
 ```
@@ -100,7 +100,7 @@ abstract class User
     // abstract method
     abstract protected function showName();
     abstract public function showGreeting($greeting);
-    
+
     // regular method
     public function showBio()
     {
@@ -116,7 +116,7 @@ abstract class User
 {
     // abstract method
     abstract protected function showName();
-    
+
     // static method
     public static function showHi()
     {
@@ -136,7 +136,7 @@ Misal dalam signature disertai required argument maka method dalam child class h
 abstract class User
 {
     abstract protected function showName();
-    
+
     abstract public function showGreeting($greeting);
 }
 
@@ -153,6 +153,36 @@ class Admin extends User
     }
 }
 ```
+
+# Trait
+
+**Trait** adalah fitur baru pada PHP 5.4. Dengan trait kita dimungkinkan untuk menggunakan ulang sebuah kode (re-use). Anggap saja trait adalah copy-paste kode program yang dilakukan melalui bahasa pemograman. Kode program di dalam sebuah trait akan di-paste ke class lain yang memakainya.
+
+***Contoh Penggunaan***
+```PHP
+trait share
+{
+    public function share()
+    {
+        return "Hello World!";
+    }
+}
+class copy
+}
+    use share;
+}
+$copy = new copy;
+echo $copy->share();
+```
+Keluaran : Hello World!
+
+### Keuntungan menggunakan Trait
+- Keuntungan menggunakan trait adalah mengurangi duplikasi kode dan juga mencegah class inheritance yang rumit yang tidak masuk akal dalam konteks aplikasi. Jadi kamu bisa membuat sebuah trait yang jelas dan ringkas kemudian memanggilnya dalam sebuah class.
+- Pada saat sebuah class perlu mengimplementasikan lebih dari satu superclass. PHP tidak mendukung multiple inheritance, maka dari itu kita menggunakan trait.
+
+### Kelemahan menggunakan Trait
+ - Traits bisa membuat sebuah class memiliki tugas yang terlalu banyak, dengan kemudahan memasukkan fungsi-fungsi ke dalam sebuah class lewat Trait, maka besar kemungkinan fungsi class tersebut sangat mudah melebar kemana-mana, dimana seharusnya sebuah class hanya memiliki 1 fungsi utama sesuai dengan **single responsibility principle**(*“every class should have a single responsibility, and that responsibility should be entirely encapsulated by the class.”*).
+ - Tidak bisa melihat semua method yang berada di class tersebut, jadi agak sulit jika terdapat error karena nama method yang sama ataupun logic yang sama dalam sebuah fungsi.
 
 # Object Interface 
 
@@ -204,7 +234,7 @@ class Pc implements Mouse
 }
 ```
 
-Jika di dalam interface mouse terdapat signature method klik_kanan(), maka di dalam class laptop yang menggunakan interface mouse, harus terdapat method klik_kanan(). Berikut contoh kode PHPnya:
+Jika di dalam interface mouse terdapat signature method klikKanan(), maka di dalam class laptop yang menggunakan interface mouse, harus terdapat method klikKanan(). Berikut contoh kode PHPnya:
 
 ```php
 interface Mouse
@@ -350,3 +380,4 @@ echo $LaptopBaru->tekanEnter();
 * Fungsi Interface dalam Pemrograman Objek
 
 Interface lebih berperan untuk menyeragamkan method. Ia tidak masuk kedalam struktur class seperti abstract class. Jika kita menggunakan abstract class komputer sebagai ‘konsep class’ untuk kemudian diturunkan kepada class lain seperti class laptop, class pc, dan class netbook, maka interface hanya ‘penyedia method’. Interface tidak termasuk kedalam pewarisan class.
+
