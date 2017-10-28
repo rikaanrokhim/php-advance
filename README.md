@@ -56,6 +56,20 @@ abstract class User
 
 5. Semua class turunan harus mengimplementasikan semua abstract method dari parent class
 Hanya abstract method yang diturunkan, sedangkan untuk regular method tidak diturunkan.
+```php
+abstract class User
+{
+    abstract protected function showName();
+}
+
+class Admin extends User
+{
+    public function showName()
+    {
+        return "Dhezign";
+    }
+}
+```
 
 6. Semua method turunan dari abstract method harus didefinisikan dengan tingkat visibilitas yang sama atau lebih rendah.
 Urutan tingkatan akses level dari tinggi ke rendah adalah 1. private, 2. protected 3. public.
