@@ -138,7 +138,7 @@ class Admin extends User
 
 # Trait
 
-**trait** Trait adalah fitur baru pada PHP 5.4. Dengan trait kita dimungkinkan untuk menggunakan ulang sebuah kode (re-use). Anggap saja trait adalah copy-paste kode program yang dilakukan melalui bahasa pemograman. Kode program di dalam sebuah trait akan di-paste ke class lain yang memakainya.
+**Trait** adalah fitur baru pada PHP 5.4. Dengan trait kita dimungkinkan untuk menggunakan ulang sebuah kode (re-use). Anggap saja trait adalah copy-paste kode program yang dilakukan melalui bahasa pemograman. Kode program di dalam sebuah trait akan di-paste ke class lain yang memakainya.
 
 ***Contoh Penggunaan***
 ```PHP
