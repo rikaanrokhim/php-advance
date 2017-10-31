@@ -659,3 +659,51 @@ class Friends extends User
 
 // jika final method diturunkan maka akan terjadi error : Results in Fatal error: Cannot override final method User::password()
 ```
+
+#### Contoh Pembuatan Final Class
+Untuk membuat final class kita cukup menaruh keyword "final" sebelum keyword class.
+```php
+final class nama_class 
+{
+   //... isi class
+}
+```
+**Penggunaan**
+```php  
+final class Induk 
+{  
+      public function Test() 
+      {  
+           return "Test Final Class";  
+      }  
+}  
+
+$induk = new Induk;
+echo $induk->Test();
+```
+
+#### Contoh Pembuatan Final Method
+Untuk membuat final method kita cukup menaruh keyword "final" sebelum keyword public function.
+
+**Sintax**
+```php
+final public function nama_method()
+{
+   //... isi method
+}
+```
+**Penggunaan**
+ ```php  
+ class Induk 
+ {  
+      final public function Test() 
+      {  
+           return "Test Final Method";  
+      }  
+ }  
+
+ $induk = new Induk;
+ echo $induk->Test();
+ ```
+
+Jadi, Final keyword tidak bisa digunakan untuk class turunan. Apabila digunakan untuk class turunan pasti akan muncul fatal error.
