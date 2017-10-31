@@ -597,3 +597,65 @@ echo $LaptopBaru->tekanEnter();
 
 Interface lebih berperan untuk menyeragamkan method. Ia tidak masuk kedalam struktur class seperti abstract class. Jika kita menggunakan abstract class komputer sebagai ‘konsep class’ untuk kemudian diturunkan kepada class lain seperti class laptop, class pc, dan class netbook, maka interface hanya ‘penyedia method’. Interface tidak termasuk kedalam pewarisan class.
 
+
+# Final Keyworad
+
+Dalam teknik pemrograman dengan OOP pada class PHP kali ini kita akan membahas final keyword. Seperti frasenya kita dapat memahami final sebagai yang bersifat akhir. 
+Begitu juga dalam class PHP, kita memahami final sebagai sesuatu yang tidak bisa diturunkan lagi.
+Keyword final dapat kita terapkan dalam method maupun dalam class. Jika kita menerapkan final keyword pada class maka class tidak bisa diturunkan lagi. 
+Jika kita menerapkan final keyword bukan pada class tetapi pada method maka class dapat diturunkan tetapi method tersebut tidak bisa di-override.
+
+
+#### Contoh Final Class
+
+```php
+<?php
+
+final class User
+{
+    public function $username()
+    {
+        return 'Username';
+    }
+    final public function $password()
+    {
+        return 'Password';
+    }
+}
+
+class Friends extends User
+{
+    // code...
+}
+
+
+// jika kode pewarisan dijalankan maka akan eror : Results in Fatal error: Class Friends may not inherit from final class (User)
+```
+
+#### Contoh Final Method
+
+```php
+<?php
+
+class User
+{
+    public function $username()
+    {
+        return 'Username';
+    }
+    final public function $password()
+    {
+        return 'Password';
+    }
+}
+
+class Friends extends User
+{
+    public function $password()
+    {
+        echo 'Password';
+    }   
+}
+
+// jika final method diturunkan maka akan terjadi error : Results in Fatal error: Cannot override final method User::password()
+```
